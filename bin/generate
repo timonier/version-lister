@@ -1,0 +1,10 @@
+#!/bin/sh
+set -ex
+cd "$(dirname "$0")/../generated"
+
+rm --force --recursive *
+for FILE in ../src/*.php ; do
+    if [ -n "$(script --command "melody run $FILE" --quiet /dev/null)" ] ; then
+        exit 1
+    fi
+done
