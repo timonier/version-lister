@@ -22,7 +22,7 @@ chmod +x /usr/local/sbin/docker-compose
 
 # Use remote version
 
-export $(curl "https://raw.githubusercontent.com/timonier/version-lister/release/generated/docker-compose/latest" | xargs)
+export $(curl "https://github.com/timonier/version-lister/raw/release/generated/docker/docker-compose/latest" | xargs)
 
 curl --location --output /usr/local/sbin/docker-compose "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-linux-x86_64"
 chmod +x /usr/local/sbin/docker-compose

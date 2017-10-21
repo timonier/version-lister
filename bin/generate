@@ -1,10 +1,31 @@
-#!/bin/sh
+#!/bin/bash
 set -ex
-cd "$(dirname "$0")/../generated"
+cd "$(dirname "$0")/.."
 
-rm --force --recursive *
-for FILE in ../src/*.php ; do
-    if [ -n "$(script --command "melody run $FILE" --quiet /dev/null)" ] ; then
+run() {
+    local RETURN=""
+    local TRY=0
+
+    until [ "${TRY}" -ge 3 ] ; do
+        RETURN=$(script --command "cd $1 && melody run $2" --quiet /dev/null)
+        if [ -z "${RETURN}" ] ; then
+            break
+        fi
+
+        TRY="$[${TRY} + 1]"
+        sleep 5
+    done
+
+    echo "${RESULT}"
+}
+
+rm --force --recursive generated/*
+for FILE in $(find "${PWD}/src" -name "*.php") ; do
+    FOLDER="${FILE%.*}"
+    FOLDER="${FOLDER/src/generated}"
+    mkdir --parents "${FOLDER}"
+
+    if [ -n "$(run ${FOLDER} ${FILE})" ] ; then
         exit 1
     fi
 done
