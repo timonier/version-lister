@@ -23,20 +23,27 @@ $client = new Client(
 // Retrieve versions
 
 try {
-    $response = $client->get('https://api.github.com/repos/transitorykris/hypnos/git/refs/tags');
+    $response = $client->get('https://api.github.com/repos/laurent22/joplin/git/refs/tags');
 } catch (\Exception $exception) {
     exit('Impossible to retrieve versions.');
 }
 
 $versions = array_filter(
-    array_map(
+    array_filter(
+        array_map(
+            function ($version) {
+                return preg_replace('`refs/tags/(release-|v)?`', '', $version['ref']);
+            },
+            json_decode($response->getBody()->getContents(), true)
+        ),
         function ($version) {
-            return preg_replace('`refs/tags/(release-|v)?`', '', $version['ref']);
-        },
-        json_decode($response->getBody()->getContents(), true)
+            return 1 === preg_match('`^[0-9.]+$`', $version);
+        }
     ),
-    function ($version) {
-        return 1 === preg_match('`^[0-9.]+$`', $version);
+    function ($version) use ($client) {
+        $response = $client->get(sprintf('https://api.github.com/repos/laurent22/joplin/releases/tags/v%s', $version), ['http_errors' => false]);
+
+        return 200 === $response->getStatusCode();
     }
 );
 usort($versions, 'version_compare');
@@ -47,7 +54,7 @@ $fs = new Filesystem();
 
 foreach ($versions as $version) {
     $content = <<<EOF
-HYPNOS_VERSION="$version"
+JOPLIN_VERSION="$version"
 
 EOF;
 
