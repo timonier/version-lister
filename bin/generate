@@ -1,31 +1,38 @@
-#!/bin/bash
-set -ex
+#!/bin/sh
+set -e
 cd "$(dirname "$0")/.."
 
 run() {
     local RETURN=""
     local TRY=0
 
+    echo "[RUN] ${FILE}"
+
     until [ "${TRY}" -ge 3 ] ; do
-        RETURN=$(script --command "cd $1 && melody run $2" --quiet /dev/null)
-        if [ -z "${RETURN}" ] ; then
+        echo -n "$(cd "$1" && melody run "$2")"
+
+        RETURN="$(ls "$1")"
+        if [ -n "${RETURN}" ] ; then
+            echo "[OK] ${FILE}"
             break
         fi
 
-        TRY="$[${TRY} + 1]"
+        echo ""
+        TRY="$((${TRY} + 1))"
         sleep 5
     done
 
-    echo "${RESULT}"
-}
-
-rm --force --recursive generated/*
-for FILE in $(find "${PWD}/src" -name "*.php") ; do
-    FOLDER="${FILE%.*}"
-    FOLDER="${FOLDER/src/generated}"
-    mkdir --parents "${FOLDER}"
-
-    if [ -n "$(run ${FOLDER} ${FILE})" ] ; then
+    if [ "${TRY}" -ge 3 ] ; then
+        echo "[NOK] ${FILE}" >&2
         exit 1
     fi
+}
+
+rm -f -r generated/*
+for FILE in $(find "${PWD}/src" -name "*.php") ; do
+    FOLDER="$(echo "${FILE}" | sed 's@.php$@@')"
+    FOLDER="$(echo "${FOLDER}" | sed 's@/src/@/generated/@')"
+    mkdir -p "${FOLDER}"
+
+    run "${FOLDER}" "${FILE}"
 done
