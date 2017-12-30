@@ -44,6 +44,7 @@ $fs = new Filesystem();
 foreach ($releases as $release) {
     $content = <<<EOF
 WEBSTORM_BUILD="${release['build']}"
+WEBSTORM_MAJOR_VERSION="${release['majorVersion']}"
 WEBSTORM_VERSION="${release['version']}"
 
 EOF;
