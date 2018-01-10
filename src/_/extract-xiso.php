@@ -29,7 +29,7 @@ $versions = array_filter(
         function ($version) {
             return preg_replace('`extract-xiso-([0-9.]+).tar.gz`', '$1', trim($version->textContent));
         },
-        iterator_to_array($crawler->filterXPath('//a[contains(@class, "name")]'))
+        iterator_to_array($crawler->filterXPath('//span[contains(@class, "name")]'))
     ),
     function ($version) {
         return version_compare($version, '2.7.0') >= 0;

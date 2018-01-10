@@ -29,7 +29,7 @@ $versions = array_filter(
         function ($version) {
             return trim($version->textContent);
         },
-        iterator_to_array($crawler->filterXPath('//a[contains(@class, "name")]'))
+        iterator_to_array($crawler->filterXPath('//span[contains(@class, "name")]'))
     ),
     function ($version) {
         return 1 === preg_match('`^[0-9.]+$`', $version) && version_compare($version, '4.0') >= 0;
