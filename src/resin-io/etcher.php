@@ -35,8 +35,18 @@ $versions = array_filter(
         },
         json_decode($response->getBody()->getContents(), true)
     ),
-    function ($version) {
-        return 1 === preg_match('`^[0-9.]+$`', $version);
+    function ($version) use ($client) {
+        if (1 !== preg_match('`^[0-9.]+$`', $version)) {
+            return false;
+        }
+
+        try {
+            $response = $client->get(sprintf('https://api.github.com/repos/resin-io/etcher/releases/tags/v%s', $version));
+
+            return true;
+        } catch (\Exception $exception) {
+            return false;
+        }
     }
 );
 usort($versions, 'version_compare');
