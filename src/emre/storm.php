@@ -11,8 +11,8 @@ use Symfony\Component\Filesystem\Filesystem;
 // Configure HTTP Client
 
 $headers = [];
-if (false !== getenv('GITHUB_TOKEN')) {
-    $headers['Authorization'] = sprintf('token %s', getenv('GITHUB_TOKEN'));
+if (false !== \getenv('GITHUB_TOKEN')) {
+    $headers['Authorization'] = \sprintf('token %s', \getenv('GITHUB_TOKEN'));
 }
 $client = new Client(
     [
@@ -28,18 +28,18 @@ try {
     exit('Impossible to retrieve versions.');
 }
 
-$versions = array_filter(
-    array_map(
+$versions = \array_filter(
+    \array_map(
         function ($version) {
-            return preg_replace('`refs/tags/(release-|v)?`', '', $version['ref']);
+            return \preg_replace('`refs/tags/(release-|v)?`', '', $version['ref']);
         },
-        json_decode($response->getBody()->getContents(), true)
+        \json_decode($response->getBody()->getContents(), true)
     ),
     function ($version) {
-        return 1 === preg_match('`^[0-9.]+$`', $version) && 0 !== version_compare($version, '1.6.7');
+        return 1 === \preg_match('`^[0-9.]+$`', $version) && 0 !== \version_compare($version, '1.6.7');
     }
 );
-usort($versions, 'version_compare');
+\usort($versions, 'version_compare');
 
 // Generate files
 
@@ -52,7 +52,7 @@ STORM_VERSION="$version"
 EOF;
 
     $fs->dumpFile($version, $content);
-    if (end($versions) === $version) {
+    if (\end($versions) === $version) {
         $fs->dumpFile('latest', $content);
     }
 }

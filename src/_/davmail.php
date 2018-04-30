@@ -24,18 +24,18 @@ try {
     exit('Impossible to retrieve versions.');
 }
 
-$versions = array_filter(
-    array_map(
+$versions = \array_filter(
+    \array_map(
         function ($version) {
-            return trim($version->textContent);
+            return \trim($version->textContent);
         },
-        iterator_to_array($crawler->filterXPath('//span[contains(@class, "name")]'))
+        \iterator_to_array($crawler->filterXPath('//span[contains(@class, "name")]'))
     ),
     function ($version) {
-        return 1 === preg_match('`^[0-9.]+$`', $version) && version_compare($version, '4.0') >= 0;
+        return 1 === \preg_match('`^[0-9.]+$`', $version) && \version_compare($version, '4.0') >= 0;
     }
 );
-usort($versions, 'version_compare');
+\usort($versions, 'version_compare');
 
 // Retrieve builds
 
@@ -44,15 +44,15 @@ foreach ($versions as $version) {
     try {
         $crawler = $client->request(
             'GET',
-            sprintf('https://sourceforge.net/projects/davmail/files/davmail/%s/', $version),
+            \sprintf('https://sourceforge.net/projects/davmail/files/davmail/%s/', $version),
             ['connect_timeout' => 1, 'delay' => 1000, 'read_timeout' => 1, 'timeout' => 1, 'verify' => false]
         );
     } catch (\Exception $exception) {
-        exit(sprintf('Impossible to retrieve build number of version "%s".', $version));
+        exit(\sprintf('Impossible to retrieve build number of version "%s".', $version));
     }
 
-    if (0 === preg_match(sprintf('`davmail-linux-x86_64-%s-([0-9]+).tgz`', preg_quote($version)), $crawler->text(), $matches)) {
-        exit(sprintf('Impossible to find build number of version "%s".', $version));
+    if (0 === \preg_match(\sprintf('`davmail-linux-x86_64-%s-([0-9]+).tgz`', \preg_quote($version)), $crawler->text(), $matches)) {
+        continue;
     }
     $builds[$version] = $matches[1];
 }
@@ -61,15 +61,15 @@ foreach ($versions as $version) {
 
 $fs = new Filesystem();
 
-foreach ($versions as $version) {
+foreach ($builds as $version => $build) {
     $content = <<<EOF
-DAVMAIL_BUILD="$builds[$version]"
+DAVMAIL_BUILD="$build"
 DAVMAIL_VERSION="$version"
 
 EOF;
 
     $fs->dumpFile($version, $content);
-    if (end($versions) === $version) {
+    if (\end($builds) === $build) {
         $fs->dumpFile('latest', $content);
     }
 }

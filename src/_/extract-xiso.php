@@ -24,18 +24,18 @@ try {
     exit('Impossible to retrieve versions.');
 }
 
-$versions = array_filter(
-    array_map(
+$versions = \array_filter(
+    \array_map(
         function ($version) {
-            return preg_replace('`extract-xiso-([0-9.]+).tar.gz`', '$1', trim($version->textContent));
+            return \preg_replace('`extract-xiso-([0-9.]+).tar.gz`', '$1', \trim($version->textContent));
         },
-        iterator_to_array($crawler->filterXPath('//span[contains(@class, "name")]'))
+        \iterator_to_array($crawler->filterXPath('//span[contains(@class, "name")]'))
     ),
     function ($version) {
-        return version_compare($version, '2.7.0') >= 0;
+        return \version_compare($version, '2.7.0') >= 0;
     }
 );
-usort($versions, 'version_compare');
+\usort($versions, 'version_compare');
 
 // Generate files
 
@@ -48,7 +48,7 @@ EXTRACT_XISO_VERSION="$version"
 EOF;
 
     $fs->dumpFile($version, $content);
-    if (end($versions) === $version) {
+    if (\end($versions) === $version) {
         $fs->dumpFile('latest', $content);
     }
 }

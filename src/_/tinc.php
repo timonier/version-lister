@@ -24,18 +24,18 @@ try {
     exit('Impossible to retrieve versions.');
 }
 
-$versions = array_filter(
-    array_map(
+$versions = \array_filter(
+    \array_map(
         function ($version) {
-            return preg_replace('`release-`', '', trim($version->textContent));
+            return \preg_replace('`release-`', '', \trim($version->textContent));
         },
-        iterator_to_array($crawler->filterXPath('//a[contains(@class, "name")]'))
+        \iterator_to_array($crawler->filterXPath('//a[contains(@class, "name")]'))
     ),
     function ($version) {
-        return 1 === preg_match('`^[0-9.]+$`', $version);
+        return 1 === \preg_match('`^[0-9.]+$`', $version);
     }
 );
-usort($versions, 'version_compare');
+\usort($versions, 'version_compare');
 
 // Generate files
 
@@ -48,7 +48,7 @@ TINC_VERSION="$version"
 EOF;
 
     $fs->dumpFile($version, $content);
-    if (end($versions) === $version) {
+    if (\end($versions) === $version) {
         $fs->dumpFile('latest', $content);
     }
 }

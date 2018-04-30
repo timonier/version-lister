@@ -24,11 +24,11 @@ try {
     exit('Impossible to retrieve versions.');
 }
 
-if (0 === preg_match_all('` v?([0-9](\.[0-9]){2}) `', $response->getBody()->getContents(), $matches)) {
+if (0 === \preg_match_all('` v?([0-9](\.[0-9]){2}) `', $response->getBody()->getContents(), $matches)) {
     exit('Impossible to find versions.');
 }
 $versions = $matches[1];
-usort($versions, 'version_compare');
+\usort($versions, 'version_compare');
 
 // Generate files
 
@@ -41,7 +41,7 @@ VSFTPD_VERSION="$version"
 EOF;
 
     $fs->dumpFile($version, $content);
-    if (end($versions) === $version) {
+    if (\end($versions) === $version) {
         $fs->dumpFile('latest', $content);
     }
 }

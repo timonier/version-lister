@@ -24,8 +24,8 @@ try {
 
     $versions = [];
     do {
-        preg_match_all('`([0-9.]+) release`', $crawler->text(), $matches);
-        $versions = array_merge($versions, array_unique($matches[1]));
+        \preg_match_all('`([0-9.]+) release`', $crawler->text(), $matches);
+        $versions = \array_merge($versions, \array_unique($matches[1]));
 
         try {
             $crawler = $client->click($crawler->selectLink('Older')->link());
@@ -37,22 +37,22 @@ try {
     exit('Impossible to retrieve versions.');
 }
 
-$versions = array_filter(
+$versions = \array_filter(
     $versions,
     function ($tags) {
-        return version_compare($tags, '5.0.0') >= 0;
+        return \version_compare($tags, '5.0.0') >= 0;
     }
 );
-usort($versions, 'version_compare');
+\usort($versions, 'version_compare');
 
 // Retrieve branches
 
 $branches = [];
 foreach ($versions as $version) {
-    $explodedVersion = explode('.', $version);
+    $explodedVersion = \explode('.', $version);
     $explodedVersion[2] = 'x';
 
-    $branches[$version] = implode('.', $explodedVersion);
+    $branches[$version] = \implode('.', $explodedVersion);
 }
 
 // Retrieve revisions
@@ -60,19 +60,19 @@ foreach ($versions as $version) {
 $revisions = [];
 foreach ($branches as $branch) {
     try {
-        $crawler = $client->request('GET', sprintf('http://bazaar.launchpad.net/~mdoyen/homebank/%s/changes', $branch));
+        $crawler = $client->request('GET', \sprintf('http://bazaar.launchpad.net/~mdoyen/homebank/%s/changes', $branch));
 
         do {
             $crawler->filterXPath('//tr[contains(@class, "revision_log")]')->each(
                 function (Crawler $line) use ($branch, &$revisions) {
-                    $revision = trim($line->children()->getNode(0)->textContent);
+                    $revision = \trim($line->children()->getNode(0)->textContent);
 
-                    if (0 === preg_match('`([0-9.]+) `', $line->children()->getNode(2)->textContent, $match)) {
+                    if (0 === \preg_match('`([0-9.]+) `', $line->children()->getNode(2)->textContent, $match)) {
                         return;
                     }
-                    $tag = trim($match[1]);
+                    $tag = \trim($match[1]);
 
-                    if (0 !== strpos($tag, substr($branch, 0, -2)) || isset($revisions[$tag])) {
+                    if (0 !== \strpos($tag, \substr($branch, 0, -2)) || isset($revisions[$tag])) {
                         return;
                     }
 
@@ -87,7 +87,7 @@ foreach ($branches as $branch) {
             }
         } while (null !== $crawler);
     } catch (\Exception $exception) {
-        exit(sprintf('Impossible to retrieve revision number for branch "%s".', $branch));
+        exit(\sprintf('Impossible to retrieve revision number for branch "%s".', $branch));
     }
 }
 
@@ -104,7 +104,7 @@ HOMEBANK_VERSION="$version"
 EOF;
 
     $fs->dumpFile($version, $content);
-    if (end($versions) === $version) {
+    if (\end($versions) === $version) {
         $fs->dumpFile('latest', $content);
     }
 }
