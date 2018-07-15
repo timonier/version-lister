@@ -36,6 +36,8 @@ chmod +x /usr/local/sbin/docker-compose
 4. Push to the branch: `git push origin my-new-feature`.
 5. Submit a pull request.
 
+If you like / use this project, please let me known by adding a [★](https://help.github.com/articles/about-stars/) on the [GitHub repository](https://github.com/timonier/version-lister).
+
 ## Links
 
 * [melody](https://github.com/sensiolabs/melody)
