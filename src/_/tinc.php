@@ -39,16 +39,14 @@ $versions = \array_filter(
 
 // Generate files
 
+$latestVersion = \end($versions);
+
 $fs = new Filesystem();
+$fs->dumpFile(
+  'latest',
+<<<EOF
+TINC_SOURCE="https://www.tinc-vpn.org/packages/tinc-${latestVersion}.tar.gz"
+TINC_VERSION="${latestVersion}"
 
-foreach ($versions as $version) {
-    $content = <<<EOF
-TINC_VERSION="$version"
-
-EOF;
-
-    $fs->dumpFile($version, $content);
-    if (\end($versions) === $version) {
-        $fs->dumpFile('latest', $content);
-    }
-}
+EOF
+);

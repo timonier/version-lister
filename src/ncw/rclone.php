@@ -43,16 +43,15 @@ $versions = \array_filter(
 
 // Generate files
 
+$latestVersion = \end($versions);
+
 $fs = new Filesystem();
+$fs->dumpFile(
+  'latest',
+<<<EOF
+RCLONE_RELEASE="https://github.com/ncw/rclone/releases/download/v${latestVersion}/rclone-v${latestVersion}-linux-amd64.zip"
+RCLONE_SOURCE="https://github.com/ncw/rclone/archive/v${latestVersion}.tar.gz"
+RCLONE_VERSION="${latestVersion}"
 
-foreach ($versions as $version) {
-    $content = <<<EOF
-RCLONE_VERSION="$version"
-
-EOF;
-
-    $fs->dumpFile($version, $content);
-    if (\end($versions) === $version) {
-        $fs->dumpFile('latest', $content);
-    }
-}
+EOF
+);

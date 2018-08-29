@@ -43,16 +43,14 @@ $versions = \array_filter(
 
 // Generate files
 
+$latestVersion = \end($versions);
+
 $fs = new Filesystem();
+$fs->dumpFile(
+  'latest',
+<<<EOF
+UNOCONV_SOURCE="https://github.com/dagwieers/unoconv/archive/${latestVersion}.tar.gz"
+UNOCONV_VERSION="${latestVersion}"
 
-foreach ($versions as $version) {
-    $content = <<<EOF
-UNOCONV_VERSION="$version"
-
-EOF;
-
-    $fs->dumpFile($version, $content);
-    if (\end($versions) === $version) {
-        $fs->dumpFile('latest', $content);
-    }
-}
+EOF
+);

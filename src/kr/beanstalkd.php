@@ -43,16 +43,14 @@ $versions = \array_filter(
 
 // Generate files
 
+$latestVersion = \end($versions);
+
 $fs = new Filesystem();
+$fs->dumpFile(
+  'latest',
+<<<EOF
+BEANSTALKD_SOURCE="https://github.com/kr/beanstalkd/archive/v${latestVersion}.tar.gz"
+BEANSTALKD_VERSION="${latestVersion}"
 
-foreach ($versions as $version) {
-    $content = <<<EOF
-BEANSTALKD_VERSION="$version"
-
-EOF;
-
-    $fs->dumpFile($version, $content);
-    if (\end($versions) === $version) {
-        $fs->dumpFile('latest', $content);
-    }
-}
+EOF
+);

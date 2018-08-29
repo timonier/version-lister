@@ -23,7 +23,7 @@ $client = new Client(
 // Retrieve versions
 
 try {
-    $response = $client->get('https://api.github.com/repos/nishanths/license/git/refs/tags');
+    $response = $client->get('https://api.github.com/repos/jwilder/dockerize/git/refs/tags');
 } catch (\Exception $exception) {
     exit('Impossible to retrieve versions.');
 }
@@ -43,16 +43,15 @@ $versions = \array_filter(
 
 // Generate files
 
+$latestVersion = \end($versions);
+
 $fs = new Filesystem();
+$fs->dumpFile(
+  'latest',
+<<<EOF
+DOCKERIZE_RELEASE="https://github.com/jwilder/dockerize/releases/download/v${latestVersion}/dockerize-linux-amd64-v${latestVersion}.tar.gz"
+DOCKERIZE_SOURCE="https://github.com/jwilder/dockerize/archive/v${latestVersion}.tar.gz"
+DOCKERIZE_VERSION="${latestVersion}"
 
-foreach ($versions as $version) {
-    $content = <<<EOF
-LICENSE_VERSION="$version"
-
-EOF;
-
-    $fs->dumpFile($version, $content);
-    if (\end($versions) === $version) {
-        $fs->dumpFile('latest', $content);
-    }
-}
+EOF
+);

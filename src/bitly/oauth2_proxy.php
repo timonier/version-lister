@@ -60,7 +60,7 @@ $versions = \array_filter(
                 }
 
                 \preg_match(
-                    '`https://github.com/bitly/oauth2_proxy/releases/download/(v[0-9.]+)/google_auth_proxy-([0-9.]+).linux-amd64.go([0-9.]+).tar.gz`',
+                    '`https://github.com/bitly/oauth2_proxy/releases/download/v([0-9.]+)/google_auth_proxy-([0-9.]+).linux-amd64.go([0-9.]+).tar.gz`',
                     $asset['browser_download_url'],
                     $matches
                 );
@@ -73,7 +73,7 @@ $versions = \array_filter(
                 }
 
                 \preg_match(
-                    '`https://github.com/bitly/oauth2_proxy/releases/download/(v[0-9.]+)/oauth2_proxy-([0-9.]+).linux-amd64.go([0-9.]+).tar.gz`',
+                    '`https://github.com/bitly/oauth2_proxy/releases/download/v([0-9.]+)/oauth2_proxy-([0-9.]+).linux-amd64.go([0-9.]+).tar.gz`',
                     $asset['browser_download_url'],
                     $matches
                 );
@@ -99,18 +99,17 @@ $versions = \array_filter(
 
 // Generate files
 
+$latestVersion = \end($versions);
+
 $fs = new Filesystem();
+$fs->dumpFile(
+  'latest',
+<<<EOF
+OAUTH2_PROXY_GO_VERSION="${latestVersion['GO_VERSION']}"
+OAUTH2_PROXY_RELEASE="https://github.com/bitly/oauth2_proxy/releases/download/v${latestVersion['TAG']}/oauth2_proxy-${latestVersion['VERSION']}.linux-amd64.go${latestVersion['GO_VERSION']}.tar.gz"
+OAUTH2_PROXY_SOURCE="https://github.com/bitly/oauth2_proxy/archive/v${latestVersion['TAG']}.tar.gz"
+OAUTH2_PROXY_TAG="${latestVersion['TAG']}"
+OAUTH2_PROXY_VERSION="${latestVersion['VERSION']}"
 
-foreach ($versions as $version) {
-    $content = <<<EOF
-OAUTH2_PROXY_GO_VERSION="${version['GO_VERSION']}"
-OAUTH2_PROXY_TAG="${version['TAG']}"
-OAUTH2_PROXY_VERSION="${version['VERSION']}"
-
-EOF;
-
-    $fs->dumpFile($version['VERSION'], $content);
-    if (\end($versions) === $version) {
-        $fs->dumpFile('latest', $content);
-    }
-}
+EOF
+);

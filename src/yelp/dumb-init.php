@@ -43,16 +43,15 @@ $versions = \array_filter(
 
 // Generate files
 
+$latestVersion = \end($versions);
+
 $fs = new Filesystem();
+$fs->dumpFile(
+  'latest',
+<<<EOF
+DUMB_INIT_RELEASE="https://github.com/Yelp/dumb-init/releases/download/v${latestVersion}/dumb-init_${latestVersion}_amd64"
+DUMB_INIT_SOURCE="https://github.com/Yelp/dumb-init/archive/v${latestVersion}.tar.gz"
+DUMB_INIT_VERSION="${latestVersion}"
 
-foreach ($versions as $version) {
-    $content = <<<EOF
-DUMB_INIT_VERSION="$version"
-
-EOF;
-
-    $fs->dumpFile($version, $content);
-    if (\end($versions) === $version) {
-        $fs->dumpFile('latest', $content);
-    }
-}
+EOF
+);

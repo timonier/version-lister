@@ -43,16 +43,15 @@ $versions = \array_filter(
 
 // Generate files
 
+$latestVersion = \end($versions);
+
 $fs = new Filesystem();
+$fs->dumpFile(
+  'latest',
+<<<EOF
+GOSU_RELEASE="https://github.com/tianon/gosu/releases/download/${latestVersion}/gosu-amd64"
+GOSU_SOURCE="https://github.com/tianon/gosu/archive/${latestVersion}.tar.gz"
+GOSU_VERSION="${latestVersion}"
 
-foreach ($versions as $version) {
-    $content = <<<EOF
-GOSU_VERSION="$version"
-
-EOF;
-
-    $fs->dumpFile($version, $content);
-    if (\end($versions) === $version) {
-        $fs->dumpFile('latest', $content);
-    }
-}
+EOF
+);

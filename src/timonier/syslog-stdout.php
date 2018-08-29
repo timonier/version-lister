@@ -43,16 +43,14 @@ $versions = \array_filter(
 
 // Generate files
 
+$latestVersion = \end($versions);
+
 $fs = new Filesystem();
+$fs->dumpFile(
+  'latest',
+<<<EOF
+SYSLOG_STDOUT_SOURCE="https://github.com/timonier/syslog-stdout/archive/v${latestVersion}.tar.gz"
+SYSLOG_STDOUT_VERSION="${latestVersion}"
 
-foreach ($versions as $version) {
-    $content = <<<EOF
-SYSLOG_STDOUT_VERSION="$version"
-
-EOF;
-
-    $fs->dumpFile($version, $content);
-    if (\end($versions) === $version) {
-        $fs->dumpFile('latest', $content);
-    }
-}
+EOF
+);

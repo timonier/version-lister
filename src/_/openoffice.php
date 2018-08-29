@@ -39,16 +39,15 @@ $versions = \array_filter(
 
 // Generate files
 
+$latestVersion = \end($versions);
+
 $fs = new Filesystem();
+$fs->dumpFile(
+  'latest',
+<<<EOF
+OPENOFFICE_LANG="en-US"
+OPENOFFICE_PACKAGE="https://sourceforge.net/projects/openofficeorg.mirror/files/${latestVersion}/binaries/en-US/Apache_OpenOffice_${latestVersion}_Linux_x86-64_install-deb_en-US.tar.gz/download"
+OPENOFFICE_VERSION="${latestVersion}"
 
-foreach ($versions as $version) {
-    $content = <<<EOF
-OPENOFFICE_VERSION="$version"
-
-EOF;
-
-    $fs->dumpFile($version, $content);
-    if (\end($versions) === $version) {
-        $fs->dumpFile('latest', $content);
-    }
-}
+EOF
+);

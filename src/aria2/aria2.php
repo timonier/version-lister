@@ -43,16 +43,15 @@ $versions = \array_filter(
 
 // Generate files
 
+$latestVersion = \end($versions);
+
 $fs = new Filesystem();
+$fs->dumpFile(
+  'latest',
+<<<EOF
+ARIA2_RELEASE="https://github.com/aria2/aria2/releases/download/release-${latestVersion}/aria2-${latestVersion}.tar.gz"
+ARIA2_SOURCE="https://github.com/aria2/aria2/archive/release-${latestVersion}.tar.gz"
+ARIA2_VERSION="${latestVersion}"
 
-foreach ($versions as $version) {
-    $content = <<<EOF
-ARIA2_VERSION="$version"
-
-EOF;
-
-    $fs->dumpFile($version, $content);
-    if (\end($versions) === $version) {
-        $fs->dumpFile('latest', $content);
-    }
-}
+EOF
+);

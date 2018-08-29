@@ -4,28 +4,28 @@ Retrieve softwares versions
 
 ## Usage
 
-Run the script `generate` to retrieve and dump all information into folder `generated`:
+Run the script `generate-all` to retrieve and dump all information into folder `generated`:
 
 ```sh
-bin/generate
+bin/generate-all
 ```
 
 Retrieved information can be used in your shell scripts:
 
 ```sh
-# Use local version
+# Use local usage
 
-export $(xargs < generated/docker-compose/latest)
+export $(xargs < generated/tianon/gosu/latest)
 
-curl --location --output /usr/local/sbin/docker-compose "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-linux-x86_64"
-chmod +x /usr/local/sbin/docker-compose
+curl --location --output /usr/local/sbin/gosu "${GOSU_RELEASE}"
+chmod +x /usr/local/sbin/gosu
 
-# Use remote version
+# Use remote usage
 
-export $(curl --location "https://github.com/timonier/version-lister/raw/generated/docker/compose/latest" | xargs)
+export $(curl --location "https://github.com/timonier/version-lister/raw/generated/tianon/gosu/latest" | xargs)
 
-curl --location --output /usr/local/sbin/docker-compose "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-linux-x86_64"
-chmod +x /usr/local/sbin/docker-compose
+curl --location --output /usr/local/sbin/gosu "${GOSU_RELEASE}"
+chmod +x /usr/local/sbin/gosu
 ```
 
 ## Contributing

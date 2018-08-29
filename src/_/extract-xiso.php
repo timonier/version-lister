@@ -39,16 +39,14 @@ $versions = \array_filter(
 
 // Generate files
 
+$latestVersion = \end($versions);
+
 $fs = new Filesystem();
+$fs->dumpFile(
+  'latest',
+<<<EOF
+EXTRACT_XISO_SOURCE="https://sourceforge.net/projects/extract-xiso/files/extract-xiso%20source/extract-xiso-${latestVersion}.tar.gz/download"
+EXTRACT_XISO_VERSION="${latestVersion}"
 
-foreach ($versions as $version) {
-    $content = <<<EOF
-EXTRACT_XISO_VERSION="$version"
-
-EOF;
-
-    $fs->dumpFile($version, $content);
-    if (\end($versions) === $version) {
-        $fs->dumpFile('latest', $content);
-    }
-}
+EOF
+);

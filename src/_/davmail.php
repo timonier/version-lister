@@ -59,17 +59,16 @@ foreach ($versions as $version) {
 
 // Generate files
 
+$latestBuild = \end($builds);
+$latestVersion = \key($builds);
+
 $fs = new Filesystem();
+$fs->dumpFile(
+  'latest',
+<<<EOF
+DAVMAIL_BUILD="${latestBuild}"
+DAVMAIL_RELEASE="https://sourceforge.net/projects/davmail/files/davmail/${latestVersion}/davmail-linux-x86_64-${latestVersion}-${latestBuild}.tgz/download"
+DAVMAIL_VERSION="${latestVersion}"
 
-foreach ($builds as $version => $build) {
-    $content = <<<EOF
-DAVMAIL_BUILD="$build"
-DAVMAIL_VERSION="$version"
-
-EOF;
-
-    $fs->dumpFile($version, $content);
-    if (\end($builds) === $build) {
-        $fs->dumpFile('latest', $content);
-    }
-}
+EOF
+);

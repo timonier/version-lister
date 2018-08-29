@@ -43,16 +43,15 @@ $versions = \array_filter(
 
 // Generate files
 
+$latestVersion = \end($versions);
+
 $fs = new Filesystem();
+$fs->dumpFile(
+  'latest',
+<<<EOF
+GLIBC_PACKAGE="https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${latestVersion}/glibc-${latestVersion}.apk"
+GLIBC_REPOSITORY_KEY="https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub"
+GLIBC_VERSION="${latestVersion}"
 
-foreach ($versions as $version) {
-    $content = <<<EOF
-GLIBC_VERSION="$version"
-
-EOF;
-
-    $fs->dumpFile($version, $content);
-    if (\end($versions) === $version) {
-        $fs->dumpFile('latest', $content);
-    }
-}
+EOF
+);

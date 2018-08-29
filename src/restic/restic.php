@@ -43,16 +43,15 @@ $versions = \array_filter(
 
 // Generate files
 
+$latestVersion = \end($versions);
+
 $fs = new Filesystem();
+$fs->dumpFile(
+  'latest',
+<<<EOF
+RESTIC_RELEASE="https://github.com/restic/restic/releases/download/v${latestVersion}/restic_${latestVersion}_linux_amd64.bz2"
+RESTIC_SOURCE="https://github.com/restic/restic/archive/v${latestVersion}.tar.gz"
+RESTIC_VERSION="${latestVersion}"
 
-foreach ($versions as $version) {
-    $content = <<<EOF
-RESTIC_VERSION="$version"
-
-EOF;
-
-    $fs->dumpFile($version, $content);
-    if (\end($versions) === $version) {
-        $fs->dumpFile('latest', $content);
-    }
-}
+EOF
+);
