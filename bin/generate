@@ -4,18 +4,18 @@ cd "$(dirname "$0")"/..
 
 # Check environment
 
-fail() {
+_fail() {
     echo 1>&2 "$1"
     echo 1>&2 "Usage: $(basename "$0") [SCRIPT]"
     exit 255
 }
 
 if [ "$#" -lt 1 ]; then
-    fail "Invalid number of arguments."
+    _fail "Invalid number of arguments."
 fi
 
 if [ ! -f "$1" ]; then
-    fail "Script \"$1\" does not exist."
+    _fail "Script \"$1\" does not exist."
 fi
 
 # Run generator

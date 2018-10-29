@@ -4,4 +4,4 @@ cd "$(dirname "$0")"/..
 
 rm -f -r generated/*
 
-find "${PWD}"/src -name "*.php" -print0 | xargs -0 -I {} -n1 -- bin/generate "{}"
+find src/ -name "*.php" -print0 | xargs -0 -I {} -n1 -- bin/generate "{}"
