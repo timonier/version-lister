@@ -4,10 +4,10 @@ Retrieve softwares versions
 
 ## Usage
 
-Run the script `generate-all` to retrieve and dump all information into folder `generated`:
+Run the script `retrieve-versions` to retrieve and dump all information into folder `generated`:
 
 ```sh
-bin/generate-all
+bin/retrieve-versions
 ```
 
 Retrieved information can be used in your shell scripts:
