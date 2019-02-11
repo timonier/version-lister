@@ -46,8 +46,8 @@ $fs->dumpFile(
   'latest',
 <<<EOF
 OPENOFFICE_LANG="en-GB"
-OPENOFFICE_PACKAGE="http://archive.apache.org/dist/openoffice/${latestVersion}/binaries/en-GB/Apache_OpenOffice_${latestVersion}_Linux_x86-64_install-deb_en-GB.tar.gz"
-OPENOFFICE_VERSION="${latestVersion}"
+OPENOFFICE_PACKAGE="http://archive.apache.org/dist/openoffice/{$latestVersion}/binaries/en-GB/Apache_OpenOffice_{$latestVersion}_Linux_x86-64_install-deb_en-GB.tar.gz"
+OPENOFFICE_VERSION="{$latestVersion}"
 
 EOF
 );

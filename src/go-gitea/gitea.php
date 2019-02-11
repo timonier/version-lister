@@ -49,9 +49,9 @@ $fs = new Filesystem();
 $fs->dumpFile(
   'latest',
 <<<EOF
-GITEA_RELEASE="https://github.com/go-gitea/gitea/releases/download/v${latestVersion}/gitea-${latestVersion}-linux-amd64"
-GITEA_SOURCE="https://github.com/go-gitea/gitea/archive/v${latestVersion}.tar.gz"
-GITEA_VERSION="${latestVersion}"
+GITEA_RELEASE="https://github.com/go-gitea/gitea/releases/download/v{$latestVersion}/gitea-{$latestVersion}-linux-amd64"
+GITEA_SOURCE="https://github.com/go-gitea/gitea/archive/v{$latestVersion}.tar.gz"
+GITEA_VERSION="{$latestVersion}"
 
 EOF
 );

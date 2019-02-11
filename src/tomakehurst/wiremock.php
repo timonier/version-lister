@@ -49,8 +49,8 @@ $fs = new Filesystem();
 $fs->dumpFile(
   'latest',
 <<<EOF
-WIREMOCK_RELEASE="http://repo1.maven.org/maven2/com/github/tomakehurst/wiremock-standalone/${latestVersion}/wiremock-standalone-${latestVersion}.jar"
-WIREMOCK_VERSION="${latestVersion}"
+WIREMOCK_RELEASE="http://repo1.maven.org/maven2/com/github/tomakehurst/wiremock-standalone/{$latestVersion}/wiremock-standalone-{$latestVersion}.jar"
+WIREMOCK_VERSION="{$latestVersion}"
 
 EOF
 );

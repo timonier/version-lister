@@ -45,8 +45,8 @@ $fs = new Filesystem();
 $fs->dumpFile(
   'latest',
 <<<EOF
-EXTRACT_XISO_SOURCE="https://sourceforge.net/projects/extract-xiso/files/extract-xiso%20source/extract-xiso-${latestVersion}.tar.gz/download"
-EXTRACT_XISO_VERSION="${latestVersion}"
+EXTRACT_XISO_SOURCE="https://sourceforge.net/projects/extract-xiso/files/extract-xiso%20source/extract-xiso-{$latestVersion}.tar.gz/download"
+EXTRACT_XISO_VERSION="{$latestVersion}"
 
 EOF
 );

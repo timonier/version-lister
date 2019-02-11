@@ -49,9 +49,9 @@ $fs = new Filesystem();
 $fs->dumpFile(
   'latest',
 <<<EOF
-ARIA2_RELEASE="https://github.com/aria2/aria2/releases/download/release-${latestVersion}/aria2-${latestVersion}.tar.gz"
-ARIA2_SOURCE="https://github.com/aria2/aria2/archive/release-${latestVersion}.tar.gz"
-ARIA2_VERSION="${latestVersion}"
+ARIA2_RELEASE="https://github.com/aria2/aria2/releases/download/release-{$latestVersion}/aria2-{$latestVersion}.tar.gz"
+ARIA2_SOURCE="https://github.com/aria2/aria2/archive/release-{$latestVersion}.tar.gz"
+ARIA2_VERSION="{$latestVersion}"
 
 EOF
 );

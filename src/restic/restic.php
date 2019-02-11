@@ -49,9 +49,9 @@ $fs = new Filesystem();
 $fs->dumpFile(
   'latest',
 <<<EOF
-RESTIC_RELEASE="https://github.com/restic/restic/releases/download/v${latestVersion}/restic_${latestVersion}_linux_amd64.bz2"
-RESTIC_SOURCE="https://github.com/restic/restic/archive/v${latestVersion}.tar.gz"
-RESTIC_VERSION="${latestVersion}"
+RESTIC_RELEASE="https://github.com/restic/restic/releases/download/v{$latestVersion}/restic_{$latestVersion}_linux_amd64.bz2"
+RESTIC_SOURCE="https://github.com/restic/restic/archive/v{$latestVersion}.tar.gz"
+RESTIC_VERSION="{$latestVersion}"
 
 EOF
 );

@@ -49,8 +49,8 @@ $fs = new Filesystem();
 $fs->dumpFile(
   'latest',
 <<<EOF
-UNOCONV_SOURCE="https://github.com/dagwieers/unoconv/archive/${latestVersion}.tar.gz"
-UNOCONV_VERSION="${latestVersion}"
+UNOCONV_SOURCE="https://github.com/dagwieers/unoconv/archive/{$latestVersion}.tar.gz"
+UNOCONV_VERSION="{$latestVersion}"
 
 EOF
 );

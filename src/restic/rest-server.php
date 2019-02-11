@@ -49,9 +49,9 @@ $fs = new Filesystem();
 $fs->dumpFile(
   'latest',
 <<<EOF
-REST_SERVER_RELEASE="https://github.com/restic/rest-server/releases/download/v${latestVersion}/rest-server-${latestVersion}-linux-amd64.gz"
-REST_SERVER_SOURCE="https://github.com/restic/rest-server/archive/v${latestVersion}.tar.gz"
-REST_SERVER_VERSION="${latestVersion}"
+REST_SERVER_RELEASE="https://github.com/restic/rest-server/releases/download/v{$latestVersion}/rest-server-{$latestVersion}-linux-amd64.gz"
+REST_SERVER_SOURCE="https://github.com/restic/rest-server/archive/v{$latestVersion}.tar.gz"
+REST_SERVER_VERSION="{$latestVersion}"
 
 EOF
 );

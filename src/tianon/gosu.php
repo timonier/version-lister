@@ -49,9 +49,9 @@ $fs = new Filesystem();
 $fs->dumpFile(
   'latest',
 <<<EOF
-GOSU_RELEASE="https://github.com/tianon/gosu/releases/download/${latestVersion}/gosu-amd64"
-GOSU_SOURCE="https://github.com/tianon/gosu/archive/${latestVersion}.tar.gz"
-GOSU_VERSION="${latestVersion}"
+GOSU_RELEASE="https://github.com/tianon/gosu/releases/download/{$latestVersion}/gosu-amd64"
+GOSU_SOURCE="https://github.com/tianon/gosu/archive/{$latestVersion}.tar.gz"
+GOSU_VERSION="{$latestVersion}"
 
 EOF
 );

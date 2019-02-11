@@ -49,9 +49,9 @@ $fs = new Filesystem();
 $fs->dumpFile(
   'latest',
 <<<EOF
-DOCKERIZE_RELEASE="https://github.com/jwilder/dockerize/releases/download/v${latestVersion}/dockerize-linux-amd64-v${latestVersion}.tar.gz"
-DOCKERIZE_SOURCE="https://github.com/jwilder/dockerize/archive/v${latestVersion}.tar.gz"
-DOCKERIZE_VERSION="${latestVersion}"
+DOCKERIZE_RELEASE="https://github.com/jwilder/dockerize/releases/download/v{$latestVersion}/dockerize-linux-amd64-v{$latestVersion}.tar.gz"
+DOCKERIZE_SOURCE="https://github.com/jwilder/dockerize/archive/v{$latestVersion}.tar.gz"
+DOCKERIZE_VERSION="{$latestVersion}"
 
 EOF
 );

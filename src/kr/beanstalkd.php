@@ -49,8 +49,8 @@ $fs = new Filesystem();
 $fs->dumpFile(
   'latest',
 <<<EOF
-BEANSTALKD_SOURCE="https://github.com/kr/beanstalkd/archive/v${latestVersion}.tar.gz"
-BEANSTALKD_VERSION="${latestVersion}"
+BEANSTALKD_SOURCE="https://github.com/kr/beanstalkd/archive/v{$latestVersion}.tar.gz"
+BEANSTALKD_VERSION="{$latestVersion}"
 
 EOF
 );

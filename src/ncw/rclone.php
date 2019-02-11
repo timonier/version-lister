@@ -43,15 +43,24 @@ $versions = \array_filter(
 
 // Generate files
 
-$latestVersion = \end($versions);
+$latestVersion = null;
+do {
+    $version = \array_pop($versions);
+
+    try {
+        $client->get("https://github.com/ncw/rclone/releases/download/v{$version}/rclone-v{$version}-linux-amd64.zip");
+        $latestVersion = $version;
+    } catch (\Exception $exception) {
+    }
+} while (null === $latestVersion && !empty($versions));
 
 $fs = new Filesystem();
 $fs->dumpFile(
   'latest',
 <<<EOF
-RCLONE_RELEASE="https://github.com/ncw/rclone/releases/download/v${latestVersion}/rclone-v${latestVersion}-linux-amd64.zip"
-RCLONE_SOURCE="https://github.com/ncw/rclone/archive/v${latestVersion}.tar.gz"
-RCLONE_VERSION="${latestVersion}"
+RCLONE_RELEASE="https://github.com/ncw/rclone/releases/download/v{$latestVersion}/rclone-v{$latestVersion}-linux-amd64.zip"
+RCLONE_SOURCE="https://github.com/ncw/rclone/archive/v{$latestVersion}.tar.gz"
+RCLONE_VERSION="{$latestVersion}"
 
 EOF
 );
