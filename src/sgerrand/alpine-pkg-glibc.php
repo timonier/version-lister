@@ -50,6 +50,7 @@ $fs->dumpFile(
   'latest',
 <<<EOF
 GLIBC_PACKAGE="https://github.com/sgerrand/alpine-pkg-glibc/releases/download/{$latestVersion}/glibc-{$latestVersion}.apk"
+GLIBC_BIN_PACKAGE="https://github.com/sgerrand/alpine-pkg-glibc/releases/download/{$latestVersion}/glibc-bin-{$latestVersion}.apk"
 GLIBC_REPOSITORY_KEY="https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub"
 GLIBC_VERSION="{$latestVersion}"
 
