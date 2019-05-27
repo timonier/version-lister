@@ -43,6 +43,17 @@ $versions = \array_filter(
 
 // Generate files
 
+$latestVersion = null;
+do {
+    $version = \array_pop($versions);
+
+    try {
+        $client->get("https://github.com/restic/rest-server/releases/download/v{$version}/rest-server-{$version}-linux-amd64.gz");
+        $latestVersion = $version;
+    } catch (\Exception $exception) {
+    }
+} while (null === $latestVersion && !empty($versions));
+
 $latestVersion = \end($versions);
 
 $fs = new Filesystem();
