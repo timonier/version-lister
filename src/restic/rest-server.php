@@ -54,8 +54,6 @@ do {
     }
 } while (null === $latestVersion && !empty($versions));
 
-$latestVersion = \end($versions);
-
 $fs = new Filesystem();
 $fs->dumpFile(
   'latest',
