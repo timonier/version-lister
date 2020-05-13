@@ -50,6 +50,7 @@ $fs->dumpFile(
   'latest',
 <<<EOF
 S6_OVERLAY_RELEASE="https://github.com/just-containers/s6-overlay/releases/download/v{$latestVersion}/s6-overlay-amd64.tar.gz"
+S6_OVERLAY_SIGNATURE="https://github.com/just-containers/s6-overlay/releases/download/v{$latestVersion}/s6-overlay-amd64.tar.gz.sig"
 S6_OVERLAY_SOURCE="https://github.com/just-containers/s6-overlay/archive/v{$latestVersion}.tar.gz"
 S6_OVERLAY_VERSION="{$latestVersion}"
 
