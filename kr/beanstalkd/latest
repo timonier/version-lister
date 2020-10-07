@@ -1,0 +1,2 @@
+BEANSTALKD_SOURCE="https://github.com/kr/beanstalkd/archive/v1.12.tar.gz"
+BEANSTALKD_VERSION="1.12"

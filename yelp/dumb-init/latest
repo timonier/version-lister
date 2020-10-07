@@ -1,0 +1,3 @@
+DUMB_INIT_RELEASE="https://github.com/Yelp/dumb-init/releases/download/v1.2.2/dumb-init_1.2.2_amd64"
+DUMB_INIT_SOURCE="https://github.com/Yelp/dumb-init/archive/v1.2.2.tar.gz"
+DUMB_INIT_VERSION="1.2.2"

@@ -1,0 +1,4 @@
+S6_OVERLAY_RELEASE="https://github.com/just-containers/s6-overlay/releases/download/v2.1.0.0/s6-overlay-amd64.tar.gz"
+S6_OVERLAY_SIGNATURE="https://github.com/just-containers/s6-overlay/releases/download/v2.1.0.0/s6-overlay-amd64.tar.gz.sig"
+S6_OVERLAY_SOURCE="https://github.com/just-containers/s6-overlay/archive/v2.1.0.0.tar.gz"
+S6_OVERLAY_VERSION="2.1.0.0"

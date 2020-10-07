@@ -1,0 +1,3 @@
+GOSU_RELEASE="https://github.com/tianon/gosu/releases/download/1.12/gosu-amd64"
+GOSU_SOURCE="https://github.com/tianon/gosu/archive/1.12.tar.gz"
+GOSU_VERSION="1.12"

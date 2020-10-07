@@ -1,0 +1,3 @@
+REST_SERVER_RELEASE="https://github.com/restic/rest-server/releases/download/v0.9.7/rest-server-0.9.7-linux-amd64.gz"
+REST_SERVER_SOURCE="https://github.com/restic/rest-server/archive/v0.9.7.tar.gz"
+REST_SERVER_VERSION="0.9.7"
