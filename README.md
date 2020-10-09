@@ -2,7 +2,7 @@
 
 Retrieve softwares versions
 
-If you like / use this project, please let me known by adding a ★ on the [GitLab repository](https://gitlab.com/timonier/version-lister).
+⚠️ This project is no longer maintained. ⚠️
 
 ## Usage
 
